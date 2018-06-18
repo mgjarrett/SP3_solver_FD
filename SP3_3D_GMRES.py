@@ -1244,39 +1244,3 @@ if __name__ == '__main__':
         g2.create_dataset(dataname,data=group_flux[:,:,:,ig])
 
     hf.close()
-
-    ################
-    ### PLOTTING ###
-    ################
-
-    #lplot = sys.argv[4]
-
-    #if(lplot == "T"):
-    #    ### plot flux after the sweep
-    #    hist_flux = np.zeros([2*ncells])
-
-    #    ### plot flux for each group
-    #    for ig in range(0,ngrp):
-    #        hist_flux[:] = make_hist(scalar_flx[ig,:])
-    #        
-    #        fluxmax=max(hist_flux[:])
-
-    #        fig = plt.figure(1)
-    #        color = plotcolors[0]
-    #        labelstr = "S%i flux" % npol
-    #        plt.plot(zhist,hist_flux[:], color, label=labelstr)
-    #        titlestr = "Group %i Flux" % (ig+1)
-    #        plt.title(titlestr)
-    #        #plt.axis([0,(thickness*ncells),0.0,fluxmax*1.1])
-    #        plt.xlabel('Z [cm]')
-    #        plt.ylabel('Flux')
-    #        plt.legend(legendstr,loc='upper right')
-    #        plt.show()
-
-    #        filename = "%s_S%i_g%i.png" % (case,npol,ig)
- 
-    #        dirname = "plots"
-    #        savename = "%s/%s" % (dirname,filename)
-    #        fig.savefig(savename)
-
-    #        plt.close(fig)
