@@ -72,7 +72,7 @@ if __name__ == '__main__':
     # Get 2D SP3 results #
     ######################
 
-    sp3name = "./sp3/takeda_30cm_SP3_h_1.7mm.h5"
+    sp3name = "./sp3/takeda_30cm_SP3_h_1mm.h5"
     sp3_pinpow = np.zeros([nx,nz])
     f = h5py.File(sp3name, "r")
     pin_pow = f[groupname]
@@ -88,7 +88,7 @@ if __name__ == '__main__':
     # Get 2D SP1 results #
     ######################
 
-    diffname = "./sp1/takeda_30cm_SP1_h_1.7mm.h5"
+    diffname = "./sp1/takeda_30cm_SP1_h_1mm.h5"
     diffusion_pinpow = np.zeros([nx,nz])
     f = h5py.File(diffname, "r")
     pin_pow = f[groupname]
@@ -124,6 +124,7 @@ if __name__ == '__main__':
     rms_error = np.zeros([nmeth+2])
     max_error = np.zeros([nmeth+2])
     pin_error = np.zeros([nmeth+2,nx,nz])
+    percent_error = np.zeros([nmeth+2,nx,nz])
     k_error = np.zeros([nmeth+2])
     for im in range(0,nmeth): 
         #print "method = %s " % methods[im]
@@ -133,6 +134,7 @@ if __name__ == '__main__':
             for iz in range(0,nz):
                 err = mpact_pinpow[im,ix,iz]-ref_pinpow[ix,iz]
                 pin_error[im,iz,ix] = err
+                percent_error[im,iz,ix] = 100.0*err
                 #print " %8.4f" % err,
                 tmpsum = tmpsum + err*err
                 if(abs(err) > maxerror):
@@ -150,6 +152,7 @@ if __name__ == '__main__':
         for iz in range(0,nz):
             err = sp3_pinpow[ix,iz]-ref_pinpow[ix,iz]
             pin_error[im,iz,ix] = err
+            percent_error[im,iz,ix] = 100.0*err
             tmpsum = tmpsum + err*err
             if(abs(err) > maxerror):
                 maxerror = abs(err)
@@ -165,6 +168,7 @@ if __name__ == '__main__':
         for iz in range(0,nz):
             err = diffusion_pinpow[ix,iz]-ref_pinpow[ix,iz]
             pin_error[im,iz,ix] = err
+            percent_error[im,iz,ix] = 100.0*err
             tmpsum = tmpsum + err*err
             if(abs(err) > maxerror):
                 maxerror = abs(err)
@@ -211,22 +215,30 @@ if __name__ == '__main__':
     # plot errors #
     ###############     
 
-    clim_lower_bound = [-0.015,-0.005,-0.005,-0.001,-0.01,-0.10]
-    clim_upper_bound = [0.015,0.005,0.005,0.001,0.01,0.10]
+    #clim_lower_bound = [-0.015,-0.005,-0.005,-0.001,-0.01,-0.10]
+    #clim_upper_bound = [0.015,0.005,0.005,0.001,0.01,0.10]
+
+    # In percent
+    clim_lower_bound = [-1.5,-0.5,-0.5,-0.1,-1.0,-5.0]
+    clim_upper_bound = [1.5,0.5,0.5,0.1,1.0,5.0]
 
     Xmesh = np.linspace(0.0,15.0,num=nx+1)
     Ymesh = np.linspace(0.0,15.0,num=nz+1)
 
+    xticks = np.linspace(0.0,15.0,num=6)
+    yticks = np.linspace(0.0,15.0,num=6)
+
     fig = plt.figure(0)
     plt.rc('font', size = 16)
-    plt.pcolor(Xmesh,Ymesh,pin_error[0,:,:],cmap='coolwarm')
-    plt.xticks(Xmesh)
-    plt.yticks(Ymesh)
+    #plt.pcolor(Xmesh,Ymesh,pin_error[0,:,:],cmap='coolwarm')
+    plt.pcolor(Xmesh,Ymesh,percent_error[0,:,:],cmap='coolwarm')
+    plt.xticks(xticks)
+    plt.yticks(yticks)
     plt.axis([0,15.0,0,15.0])
-    titlestr = "Power Shape Error, %s" % methods[0]
+    titlestr = "Power Shape Error (%s), %s" % ('%',methods[0])
     plt.title(titlestr)
-    plt.xlabel('Axial Height [cm]')
-    plt.ylabel('Power Shape Error (%)')
+    plt.xlabel('Radial Distance [cm]')
+    plt.ylabel('Axial Height [cm]')
     plt.clim([clim_lower_bound[0],clim_upper_bound[0]])
     plt.colorbar()
     #plt.show()
@@ -242,14 +254,15 @@ if __name__ == '__main__':
 
     fig = plt.figure(1)
     plt.rc('font', size = 16)
-    plt.pcolor(Xmesh,Ymesh,pin_error[1,:,:],cmap='coolwarm')
-    plt.xticks(Xmesh)
-    plt.yticks(Ymesh)
+    #plt.pcolor(Xmesh,Ymesh,pin_error[1,:,:],cmap='coolwarm')
+    plt.pcolor(Xmesh,Ymesh,percent_error[1,:,:],cmap='coolwarm')
+    plt.xticks(xticks)
+    plt.yticks(yticks)
     plt.axis([0,15.0,0,15.0])
-    titlestr = "Power Shape Error, %s" % methods[1]
+    titlestr = "Power Shape Error (%s), %s" % ('%',methods[1])
     plt.title(titlestr)
-    plt.xlabel('Axial Height [cm]')
-    plt.ylabel('Power Shape Error (%)')
+    plt.xlabel('Radial Distance [cm]')
+    plt.ylabel('Axial Height [cm]')
     plt.clim([clim_lower_bound[1],clim_upper_bound[1]])
     plt.colorbar()
     #plt.show()
@@ -265,14 +278,15 @@ if __name__ == '__main__':
 
     fig = plt.figure(2)
     plt.rc('font', size = 16)
-    plt.pcolor(Xmesh,Ymesh,pin_error[2,:,:],cmap='coolwarm')
-    plt.xticks(Xmesh)
-    plt.yticks(Ymesh)
+    #plt.pcolor(Xmesh,Ymesh,pin_error[2,:,:],cmap='coolwarm')
+    plt.pcolor(Xmesh,Ymesh,percent_error[2,:,:],cmap='coolwarm')
+    plt.xticks(xticks)
+    plt.yticks(yticks)
     plt.axis([0,15.0,0,15.0])
-    titlestr = "Power Shape Error, %s" % methods[2]
+    titlestr = "Power Shape Error (%s), %s" % ('%',methods[2])
     plt.title(titlestr)
-    plt.xlabel('Axial Height [cm]')
-    plt.ylabel('Power Shape Error (%)')
+    plt.xlabel('Radial Distance [cm]')
+    plt.ylabel('Axial Height [cm]')
     plt.clim([clim_lower_bound[2],clim_upper_bound[2]])
     plt.colorbar()
     #plt.show()
@@ -288,14 +302,15 @@ if __name__ == '__main__':
 
     fig = plt.figure(3)
     plt.rc('font', size = 16)
-    plt.pcolor(Xmesh,Ymesh,pin_error[3,:,:],cmap='coolwarm')
-    plt.xticks(Xmesh)
-    plt.yticks(Ymesh)
+    #plt.pcolor(Xmesh,Ymesh,pin_error[3,:,:],cmap='coolwarm')
+    plt.pcolor(Xmesh,Ymesh,percent_error[3,:,:],cmap='coolwarm')
+    plt.xticks(xticks)
+    plt.yticks(yticks)
     plt.axis([0,15.0,0,15.0])
-    titlestr = "Power Shape Error, %s" % methods[3]
+    titlestr = "Power Shape Error (%s), %s" % ('%',methods[3])
     plt.title(titlestr)
-    plt.xlabel('Axial Height [cm]')
-    plt.ylabel('Power Shape Error (%)')
+    plt.xlabel('Radial Distance [cm]')
+    plt.ylabel('Axial Height [cm]')
     plt.clim([clim_lower_bound[3],clim_upper_bound[3]])
     plt.colorbar()
     #plt.show()
@@ -311,20 +326,21 @@ if __name__ == '__main__':
 
     fig = plt.figure(4)
     plt.rc('font', size = 16)
-    plt.pcolor(Xmesh,Ymesh,pin_error[4,:,:],cmap='coolwarm')
-    plt.xticks(Xmesh)
-    plt.yticks(Ymesh)
+    #plt.pcolor(Xmesh,Ymesh,pin_error[4,:,:],cmap='coolwarm')
+    plt.pcolor(Xmesh,Ymesh,percent_error[4,:,:],cmap='coolwarm')
+    plt.xticks(xticks)
+    plt.yticks(yticks)
     plt.axis([0,15.0,0,15.0])
-    titlestr = "Power Shape Error, SP3, 1.7 mm"
+    titlestr = "Power Shape Error (%), SP3, 1 mm"
     plt.title(titlestr)
-    plt.xlabel('Axial Height [cm]')
-    plt.ylabel('Power Shape Error (%)')
+    plt.xlabel('Radial Distance [cm]')
+    plt.ylabel('Axial Height [cm]')
     plt.clim([clim_lower_bound[4],clim_upper_bound[4]])
     plt.colorbar()
     #plt.show()
 
-    filename = "takeda_30cm_power_error_SP3_1.7mm.png"
-    #filename = "takeda_30cm_power_error_SP3_1.7mm.eps"
+    filename = "takeda_30cm_power_error_SP3_1mm.png"
+    #filename = "takeda_30cm_power_error_SP3_1mm.eps"
     dirname = "figures/SP3/"
     call(["mkdir","-p",dirname])
     savename = "%s/%s" % (dirname,filename)
@@ -334,20 +350,21 @@ if __name__ == '__main__':
 
     fig = plt.figure(5)
     plt.rc('font', size = 16)
-    plt.pcolor(Xmesh,Ymesh,pin_error[5,:,:],cmap='coolwarm')
-    plt.xticks(Xmesh)
-    plt.yticks(Ymesh)
+    #plt.pcolor(Xmesh,Ymesh,pin_error[5,:,:],cmap='coolwarm')
+    plt.pcolor(Xmesh,Ymesh,percent_error[5,:,:],cmap='coolwarm')
+    plt.xticks(xticks)
+    plt.yticks(yticks)
     plt.axis([0,15.0,0,15.0])
-    titlestr = "Power Shape Error, SP1, 1.7 mm"
+    titlestr = "Power Shape Error (%), SP1, 1 mm"
     plt.title(titlestr)
-    plt.xlabel('Axial Height [cm]')
-    plt.ylabel('Power Shape Error (%)')
+    plt.xlabel('Radial Distance [cm]')
+    plt.ylabel('Axial Height [cm]')
     plt.clim([clim_lower_bound[5],clim_upper_bound[5]])
     plt.colorbar()
     #plt.show()
 
-    filename = "takeda_30cm_power_error_SP1_1.7mm.png"
-    #filename = "takeda_30cm_power_error_SP1_1.7mm.eps"
+    filename = "takeda_30cm_power_error_SP1_1mm.png"
+    #filename = "takeda_30cm_power_error_SP1_1mm.eps"
     dirname = "figures/SP1/"
     call(["mkdir","-p",dirname])
     savename = "%s/%s" % (dirname,filename)
@@ -475,7 +492,7 @@ if __name__ == '__main__':
 
     titlestr = "Axially Integrated Radial Power"
     plt.title(titlestr)
-    plt.xlabel('Radial Height [cm]')
+    plt.xlabel('Radial Distance [cm]')
     plt.ylabel('Radial Power Error (%)')
     #plt.legend(['P3 ISO TL','P3 ANISO TL','SP3','DIFF'],loc='best')
     plt.legend(['P3 ISO TL','P3 ANISO TL','SP3'],loc='best')
