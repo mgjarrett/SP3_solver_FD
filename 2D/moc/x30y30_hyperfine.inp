@@ -1,0 +1,45 @@
+CASEID x30y30_hyperfine
+
+MATERIAL
+  mat  1 2 :: CORE
+  mat  2 0 :: REFL
+  mat  3 0 :: CROD
+  mat  4 0 :: VOID
+
+GEOM
+
+ !Loads pin modular ray tracing and all pin types
+ !Module 1 - UO2-3.3 pin
+ !Module 2 - MOX-4.3 pin
+ !Module 3 - MOX-7.0 pin
+ !Module 4 - MOX-8.7 pin
+ !Module 5 - Fission Chamber pin
+ !Module 6 - Guide Tube pin
+ !Module 7 - Reflector pin
+
+ file ./base_takeda_hyperfine.inp
+
+ !Define lattices, assemblies and core
+  assembly 1
+   1
+
+  core 360
+   1 
+
+XSEC
+  addpath ../
+  xslib USER takeda-1.xsl
+
+STATE
+
+OPTION
+  bound_cond 1 1 0 0 1 1
+  solver 1 2
+  CMFD A MGNODE F 0.0 1.0 150 F
+  ray 0.01 CHEBYSHEV-GAUSS 32 12
+  parallel 1 1 1 4
+  conv_crit 2*1.e-6
+  iter_lim 200 1 1
+  vis_edits F   
+  validation F C
+.

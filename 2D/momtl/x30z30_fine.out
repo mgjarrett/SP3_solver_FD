@@ -1,0 +1,671 @@
+MPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACT
+
+
+     MMMMMMM         MMMMMMM  PPPPPPPPPPPPPPP          AAA              CCCCCCCCC     TTTTTTTTTTTTTTTTTT
+     MMMMMMMM       MMMMMMMM  PPPPPPPPPPPPPPPP        AAAAA           CCCCCCCCCCCCC   TTTTTTTTTTTTTTTTTT
+      MMMM MMM     MMM MMMM    PPPP        PPPP      AAAAAAA         CCCC       CCCC  TTT    TTTT    TTT
+      MMMM  MMM   MMM  MMMM    PPPP         PPPP     AAA AAA        CCCC         CCCC        TTTT       
+      MMMM   MMM MMM   MMMM    PPPP         PPPP    AAAA AAAA      CCCC                      TTTT       
+      MMMM    MMMMM    MMMM    PPPP        PPPP    AAAA   AAAA     CCCC                      TTTT       
+      MMMM     MMM     MMMM    PPPPPPPPPPPPPPP    AAAA     AAAA    CCCC                      TTTT       
+      MMMM             MMMM    PPPPPPPPPPPPPP     AAAA     AAAA    CCCC                      TTTT       
+      MMMM             MMMM    PPPP              AAAAAAAAAAAAAAA   CCCC          CCCC        TTTT       
+      MMMM             MMMM    PPPP              AAAAAAAAAAAAAAA   CCCC          CCCC        TTTT       
+      MMMM             MMMM    PPPP             AAAA         AAAA   CCCC         CCCC        TTTT       
+      MMMM             MMMM    PPPP             AAAA         AAAA    CCCC       CCCC         TTTT       
+     MMMMMM           MMMMMM  PPPPPP           AAAAA         AAAAA    CCCCCCCCCCCCC        TTTTTTTT     
+     MMMMMM           MMMMMM  PPPPPP           AAAAA         AAAAA      CCCCCCCCC          TTTTTTTT     
+
+
+MPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACTMPACT
+
+
+================================================================================
+                                MPACT v2.1.0      (  rev: 7113   SHA1: 07408b9)
+                                                  (built: 15:27:29 Jun  7 2018)
+           Executing case: x80z80_fine
+           by jarremic on highpoint.engin.umich.edu at 12:08:07, June 13, 2018...
+
+================================================================================
+
+
+                                 Echo of Input
+--------------------------------------------------------------------------------
+CASEID x80z80_fine
+
+MATERIAL
+  mat  1 2 :: CORE
+  mat  2 0 :: REFL
+  mat  3 0 :: CROD
+  mat  4 0 :: VOID
+
+GEOM
+
+ !Loads pin modular ray tracing and all pin types
+ !Module 1 - UO2-3.3 pin
+ !Module 2 - MOX-4.3 pin
+ !Module 3 - MOX-7.0 pin
+ !Module 4 - MOX-8.7 pin
+ !Module 5 - Fission Chamber pin
+ !Module 6 - Guide Tube pin
+ !Module 7 - Reflector pin
+
+ file ./base_takeda.inp
+
+ !Define lattices, assemblies and core
+  assembly 1
+   15*1 15*2
+
+ core 360
+   1
+
+XSEC
+  addpath ../
+  xslib USER takeda-1.xsl
+
+STATE
+
+OPTION
+  bound_cond 1 1 0 1 0 1
+  solver 1 2
+  CMFD A MGNODE F 0.0 1.0 150 F
+  ray 0.02 CHEBYSHEV-GAUSS 32 12
+  axial_tl F MOM FLAT
+  nodal T SP3 P3-MOMENT F 2 ISOTROPIC 2
+  parallel 5 1 1 4
+  conv_crit 2*1.e-6
+  iter_lim 200 1 1
+  vis_edits F
+  validation F C
+--------------------------------------------------------------------------------
+
+     = Product Quadrature Edits =
+
+                    Number of azimuthal angles =                   32
+                        Number of polar angles =                   12
+
+     - Azimuthal Angle -
+
+      +---------------------------------+
+      | Index | Alpha (Deg.) |  Weight  |
+      +---------------------------------+
+          1         1.406      3.125E-02
+          2         4.219      3.125E-02
+          3         7.031      3.125E-02
+          4         9.844      3.125E-02
+          5        12.656      3.125E-02
+          6        15.469      3.125E-02
+          7        18.281      3.125E-02
+          8        21.094      3.125E-02
+          9        23.906      3.125E-02
+         10        26.719      3.125E-02
+         11        29.531      3.125E-02
+         12        32.344      3.125E-02
+         13        35.156      3.125E-02
+         14        37.969      3.125E-02
+         15        40.781      3.125E-02
+         16        43.594      3.125E-02
+         17        46.406      3.125E-02
+         18        49.219      3.125E-02
+         19        52.031      3.125E-02
+         20        54.844      3.125E-02
+         21        57.656      3.125E-02
+         22        60.469      3.125E-02
+         23        63.281      3.125E-02
+         24        66.094      3.125E-02
+         25        68.906      3.125E-02
+         26        71.719      3.125E-02
+         27        74.531      3.125E-02
+         28        77.344      3.125E-02
+         29        80.156      3.125E-02
+         30        82.969      3.125E-02
+         31        85.781      3.125E-02
+         32        88.594      3.125E-02
+
+     - Polar Angle -
+
+      +---------------------------------+
+      | Index | Theta (Deg.) |  Weight  |
+      +---------------------------------+
+          1        5.624      1.234E-02
+          2       12.908      2.853E-02
+          3       20.236      4.428E-02
+          4       27.574      5.930E-02
+          5       34.915      7.335E-02
+          6       42.258      8.619E-02
+          7       49.602      9.762E-02
+          8       56.947      1.074E-01
+          9       64.291      1.155E-01
+         10       71.637      1.217E-01
+         11       78.982      1.258E-01
+         12       86.327      1.279E-01
+
+     =  Quadrature Errors =
+
+        --------------- 0th-Order Moment Rel. Errors (%) -----------------
+                                                     1 =   0.000000
+        --------------- 2nd-Order Moment Rel. Errors (%) -----------------
+                                           (Omega_x)^2 =   0.000000
+                                           (Omega_y)^2 =   0.000000
+                                           (Omega_z)^2 =   0.000000
+        --------------- 4th-Order Moment Rel. Errors (%) -----------------
+                                           (Omega_x)^4 =   0.000000
+                                           (Omega_y)^4 =   0.000000
+                                           (Omega_z)^4 =   0.000000
+                             (Omega_x)^2 * (Omega_y)^2 =   0.000000
+                             (Omega_x)^2 * (Omega_z)^2 =   0.000000
+                             (Omega_y)^2 * (Omega_z)^2 =   0.000000
+        --------------- 6th-Order Moment Rel. Errors (%) -----------------
+                                           (Omega_x)^6 =   0.000000
+                                           (Omega_y)^6 =   0.000000
+                                           (Omega_z)^6 =   0.000000
+                             (Omega_x)^4 * (Omega_y)^2 =   0.000000
+                             (Omega_x)^4 * (Omega_z)^2 =   0.000000
+                             (Omega_y)^4 * (Omega_x)^2 =   0.000000
+                             (Omega_y)^4 * (Omega_z)^2 =   0.000000
+                             (Omega_z)^4 * (Omega_x)^2 =   0.000000
+                             (Omega_z)^4 * (Omega_y)^2 =   0.000000
+               (Omega_x)^2 * (Omega_y)^2 * (Omega_z)^2 =   0.000000
+        --------------- 8th-Order Moment Rel. Errors (%) -----------------
+                                           (Omega_x)^8 =   0.000000
+                                           (Omega_y)^8 =   0.000000
+                                           (Omega_z)^8 =   0.000000
+                             (Omega_x)^6 * (Omega_y)^2 =   0.000000
+                             (Omega_x)^6 * (Omega_z)^2 =   0.000000
+                             (Omega_y)^6 * (Omega_x)^2 =   0.000000
+                             (Omega_y)^6 * (Omega_z)^2 =   0.000000
+                             (Omega_z)^6 * (Omega_x)^2 =   0.000000
+                             (Omega_z)^6 * (Omega_y)^2 =   0.000000
+                             (Omega_x)^4 * (Omega_y)^4 =   0.000000
+                             (Omega_x)^4 * (Omega_z)^4 =   0.000000
+                             (Omega_y)^4 * (Omega_z)^4 =   0.000000
+               (Omega_x)^4 * (Omega_y)^2 * (Omega_z)^2 =   0.000000
+               (Omega_x)^2 * (Omega_y)^4 * (Omega_z)^2 =   0.000000
+               (Omega_x)^2 * (Omega_y)^2 * (Omega_z)^4 =   0.000000
+
+     = Product Quadrature Edits =
+
+                    Number of azimuthal angles =                   32
+                        Number of polar angles =                   12
+
+     - Azimuthal Angle -
+
+      +---------------------------------+
+      | Index | Alpha (Deg.) |  Weight  |
+      +---------------------------------+
+          1         1.406      3.125E-02
+          2         4.219      3.125E-02
+          3         7.031      3.125E-02
+          4         9.844      3.125E-02
+          5        12.656      3.125E-02
+          6        15.469      3.125E-02
+          7        18.281      3.125E-02
+          8        21.094      3.125E-02
+          9        23.906      3.125E-02
+         10        26.719      3.125E-02
+         11        29.531      3.125E-02
+         12        32.344      3.125E-02
+         13        35.156      3.125E-02
+         14        37.969      3.125E-02
+         15        40.781      3.125E-02
+         16        43.594      3.125E-02
+         17        46.406      3.125E-02
+         18        49.219      3.125E-02
+         19        52.031      3.125E-02
+         20        54.844      3.125E-02
+         21        57.656      3.125E-02
+         22        60.469      3.125E-02
+         23        63.281      3.125E-02
+         24        66.094      3.125E-02
+         25        68.906      3.125E-02
+         26        71.719      3.125E-02
+         27        74.531      3.125E-02
+         28        77.344      3.125E-02
+         29        80.156      3.125E-02
+         30        82.969      3.125E-02
+         31        85.781      3.125E-02
+         32        88.594      3.125E-02
+
+     - Polar Angle -
+
+      +---------------------------------+
+      | Index | Theta (Deg.) |  Weight  |
+      +---------------------------------+
+          1        5.624      1.234E-02
+          2       12.908      2.853E-02
+          3       20.236      4.428E-02
+          4       27.574      5.930E-02
+          5       34.915      7.335E-02
+          6       42.258      8.619E-02
+          7       49.602      9.762E-02
+          8       56.947      1.074E-01
+          9       64.291      1.155E-01
+         10       71.637      1.217E-01
+         11       78.982      1.258E-01
+         12       86.327      1.279E-01
+
+     =  Quadrature Errors =
+
+        --------------- 0th-Order Moment Rel. Errors (%) -----------------
+                                                     1 =   0.000000
+        --------------- 2nd-Order Moment Rel. Errors (%) -----------------
+                                           (Omega_x)^2 =   0.000000
+                                           (Omega_y)^2 =   0.000000
+                                           (Omega_z)^2 =   0.000000
+        --------------- 4th-Order Moment Rel. Errors (%) -----------------
+                                           (Omega_x)^4 =   0.000000
+                                           (Omega_y)^4 =   0.000000
+                                           (Omega_z)^4 =   0.000000
+                             (Omega_x)^2 * (Omega_y)^2 =   0.000000
+                             (Omega_x)^2 * (Omega_z)^2 =   0.000000
+                             (Omega_y)^2 * (Omega_z)^2 =   0.000000
+        --------------- 6th-Order Moment Rel. Errors (%) -----------------
+                                           (Omega_x)^6 =   0.000000
+                                           (Omega_y)^6 =   0.000000
+                                           (Omega_z)^6 =   0.000000
+                             (Omega_x)^4 * (Omega_y)^2 =   0.000000
+                             (Omega_x)^4 * (Omega_z)^2 =   0.000000
+                             (Omega_y)^4 * (Omega_x)^2 =   0.000000
+                             (Omega_y)^4 * (Omega_z)^2 =   0.000000
+                             (Omega_z)^4 * (Omega_x)^2 =   0.000000
+                             (Omega_z)^4 * (Omega_y)^2 =   0.000000
+               (Omega_x)^2 * (Omega_y)^2 * (Omega_z)^2 =   0.000000
+        --------------- 8th-Order Moment Rel. Errors (%) -----------------
+                                           (Omega_x)^8 =   0.000000
+                                           (Omega_y)^8 =   0.000000
+                                           (Omega_z)^8 =   0.000000
+                             (Omega_x)^6 * (Omega_y)^2 =   0.000000
+                             (Omega_x)^6 * (Omega_z)^2 =   0.000000
+                             (Omega_y)^6 * (Omega_x)^2 =   0.000000
+                             (Omega_y)^6 * (Omega_z)^2 =   0.000000
+                             (Omega_z)^6 * (Omega_x)^2 =   0.000000
+                             (Omega_z)^6 * (Omega_y)^2 =   0.000000
+                             (Omega_x)^4 * (Omega_y)^4 =   0.000000
+                             (Omega_x)^4 * (Omega_z)^4 =   0.000000
+                             (Omega_y)^4 * (Omega_z)^4 =   0.000000
+               (Omega_x)^4 * (Omega_y)^2 * (Omega_z)^2 =   0.000000
+               (Omega_x)^2 * (Omega_y)^4 * (Omega_z)^2 =   0.000000
+               (Omega_x)^2 * (Omega_y)^2 * (Omega_z)^4 =   0.000000
+
+     = Material Type Edits =
+
+
+         Material Name            = MAT 1
+         Material ID Number       =      1
+         Number of Isotopes       =      1
+         Is Material Fluid?       = F
+         Is Material Fuel?        = T
+         Is Material Resonant?    = F
+         Is Material Depletable?  = T
+         Material Temperature (K) =   293.15    
+         Material Density (g/cc)  =   1.0000    
+         XS Component Information:    
+               XS Library File Name     = ../takeda-1.xsl
+               XS Library Tag           = Takeda Model 1 Benchmark XS
+               +------------------------------------------+
+               | XS Record Name | Number Density (#/b-cm) |
+               +------------------------------------------+
+                            CORE     1.000000000000000E+00
+
+
+         Material Name            = MAT 2
+         Material ID Number       =      2
+         Number of Isotopes       =      1
+         Is Material Fluid?       = F
+         Is Material Fuel?        = F
+         Is Material Resonant?    = F
+         Is Material Depletable?  = F
+         Material Temperature (K) =   293.15    
+         Material Density (g/cc)  =   1.0000    
+         XS Component Information:    
+               XS Library File Name     = ../takeda-1.xsl
+               XS Library Tag           = Takeda Model 1 Benchmark XS
+               +------------------------------------------+
+               | XS Record Name | Number Density (#/b-cm) |
+               +------------------------------------------+
+                            REFL     1.000000000000000E+00
+
+
+         Material Name            = MAT 3
+         Material ID Number       =      3
+         Number of Isotopes       =      1
+         Is Material Fluid?       = F
+         Is Material Fuel?        = F
+         Is Material Resonant?    = F
+         Is Material Depletable?  = F
+         Material Temperature (K) =   293.15    
+         Material Density (g/cc)  =   1.0000    
+         XS Component Information:    
+               XS Library File Name     = ../takeda-1.xsl
+               XS Library Tag           = Takeda Model 1 Benchmark XS
+               +------------------------------------------+
+               | XS Record Name | Number Density (#/b-cm) |
+               +------------------------------------------+
+                            CROD     1.000000000000000E+00
+
+
+         Material Name            = MAT 4
+         Material ID Number       =      4
+         Number of Isotopes       =      1
+         Is Material Fluid?       = F
+         Is Material Fuel?        = F
+         Is Material Resonant?    = F
+         Is Material Depletable?  = F
+         Material Temperature (K) =   293.15    
+         Material Density (g/cc)  =   1.0000    
+         XS Component Information:    
+               XS Library File Name     = ../takeda-1.xsl
+               XS Library Tag           = Takeda Model 1 Benchmark XS
+               +------------------------------------------+
+               | XS Record Name | Number Density (#/b-cm) |
+               +------------------------------------------+
+                            VOID     1.000000000000000E+00
+
+
+     = Modular Mesh Edits =
+
+            Total Number of Modular Mesh Elem. =                 2700
+           Total Number of Flat Source Regions =                54000
+
+
+     - Fuel/Reflector Map -
+
+ Plane    15
+ F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F
+ F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F
+ F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F
+
+     - Partition Index -
+
+ Plane     1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+ Plane     2
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+ Plane     3
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+ Plane     4
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+ Plane     5
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+ Plane     6
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+ Plane     7
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+
+ Plane     8
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+
+ Plane     9
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+
+ Plane    10
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+
+ Plane    11
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+
+ Plane    12
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+
+ Plane    13
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+
+ Plane    14
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+
+ Plane    15
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+
+ Plane    16
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+
+ Plane    17
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+
+ Plane    18
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+
+ Plane    19
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+
+ Plane    20
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+
+ Plane    21
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+
+ Plane    22
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+
+ Plane    23
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+
+ Plane    24
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+
+ Plane    25
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+
+ Plane    26
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+
+ Plane    27
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+
+ Plane    28
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+
+ Plane    29
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+
+ Plane    30
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+ 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+
+          +------------------------------------------+
+          |    Partition Metric    |      Value      |
+          +------------------------------------------+
+             Max/Min ratio                 1.00000
+             RMS diff. from optimal        0.00000
+             Edges Cut                   360.00000
+             Exposed Modules             720.00000
+
+          +------------------------------------------------------------+
+          |    Partition Index    |   # Modules   |  # source regions  |
+          +------------------------------------------------------------+
+                      0                   540                10800
+                      1                   540                10800
+                      2                   540                10800
+                      3                   540                10800
+                      4                   540                10800
+
+     = Parallel Decomposition =
+
+                          Number of Spatial Domains =        5
+                          Number of Angular Domains =        1
+                           Number of Energy Domains =        1
+                           Total MPI Processes used =        5
+      Number of OpenMP threads used per MPI process =        4
+                    Total Number of Processors used =       20
+
+ +--------------------------------------------------------------------------------------------------------+
+ | World | Space | Angle | Energy |  nMesh  | nAngles | First Mesh | Last Mesh | First Angle | Last Angle |
+ | Rank  | Rank  | Rank  |  Rank  |         |         |   Index    |   Index   |    Index    |   Index    |
+ +--------------------------------------------------------------------------------------------------------+
+        0       0       0        0       540        64            1         540             1           64
+        1       1       0        0       540        64          541        1080             1           64
+        2       2       0        0       540        64         1081        1620             1           64
+        3       3       0        0       540        64         1621        2160             1           64
+        4       4       0        0       540        64         2161        2700             1           64
+
+     = Core Mesh Edits =
+
+            Total Number of Assembly Types    =   1
+            Total Number of LatticeMesh Types =   2
+            Total Number of Module Types      =   4
+            Total Number of Pin Types         =   4
+            Total Number of Pin Mesh Types    =   1
+
+            Total Core Mass (kg)  =     0.000
+
+     - Assembly Index Map -
+        1
+
+
+     - Assembly ID Map -
+        1
+
+
+********************************************************************************
+******************************* STATE_0001 EDITS *******************************
+********************************************************************************
+
+    k-eff = 1.1471224
+
+         =======* StateType *======= 
+                    1 INTEGER(SNK)               :: iState=            1
+                    2 TYPE(StringType)           :: title=
+                    3 TYPE(StringType)           :: op_date=
+                    4 REAL(SDK)                  :: rated_power= 0.1000000000000000E-05 !The rated power for the problem in units of MegaWatts.
+                    5 REAL(SDK)                  :: power=  100.0000000000000     !The percent of the rated power to be used for this state.
+                    6 REAL(SDK)                  :: rated_flow=  0.000000000000000    
+                    7 REAL(SDK)                  :: flow=  100.0000000000000    
+                    8 TYPE(StringType)           :: rated_flow_units=KG/S                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                    9 REAL(SDK)                  :: bypass=  0.000000000000000    
+                   10 REAL(SDK)                  :: tinlet=  0.000000000000000    
+                   11 REAL(SDK)                  :: pressure=  0.000000000000000    
+                   12 REAL(SDK)                  :: exposure=                    NaN
+                   13 REAL(SDK)                  :: exposure_efpd=  0.000000000000000    
+                   14 REAL(SDK)                  :: exposure_hours=  0.000000000000000    
+                   15 REAL(SDK)                  :: hours=  0.000000000000000    
+                   16 LOGICAL(SBK)               :: reset_sol= F
+                   17 LOGICAL(SBK)               :: feedback= F
+                   18 REAL(SDK)                  :: modden=  0.000000000000000    
+                   19 REAL(SDK)                  :: coolden=  0.000000000000000    
+                   20 REAL(SDK)                  :: tfuel=  0.000000000000000    
+                   21 REAL(SDK)                  :: thexp_tfuel=  0.000000000000000    
+                   22 REAL(SDK)                  :: thexp_tmod=  0.000000000000000    
+                   23 REAL(SDK)                  :: thexp_tclad=  0.000000000000000    
+                   24 1-D ARRAY REAL(SDK)        :: void= 0.0000000000000    
+                   25 1-D ARRAY INTEGER(SNK)     :: bank_pos=            0
+                   26 1-D ARRAY TYPE(StringType) :: bank_labels=
+                   27 TYPE(StringType)           :: search=keff
+                   28 TYPE(StringType)           :: search_bank=D
+                   29 REAL(SDK)                  :: kcrit=  1.000000000000000    
+                   30 REAL(SDK)                  :: boron=  0.000000000000000    
+                   31 REAL(SDK)                  :: b10= 0.1990000000000000    
+                   32 LOGICAL(SBK)               :: b10_depl= F
+                   33 TYPE(StringType)           :: xenopt=
+                   34 TYPE(StringType)           :: samopt=
+                   35 REAL(SDK)                  :: rlx_xesm=  1.000000000000000    
+                   36 LOGICAL(SBK)               :: trans_on= F
+                   37 1-D ARRAY INTEGER(SNK)     :: to_matids=            0
+                   38 1-D ARRAY INTEGER(SNK)     :: from_matids=            0
+                   39 1-D ARRAY INTEGER(SNK)     :: comp_ids=            0
+                   40 1-D ARRAY REAL(SDK)        :: trans_amounts= 0.0000000000000    
+                   41 1-D ARRAY TYPE(StringType) :: mat_units=
+                   42 1-D ARRAY TYPE(StringType) :: time_units=
+                   43 1-D ARRAY REAL(SDK)        :: cool_chem= 0.0000000000000    
+                   44 REAL(SDK)                  :: uniform_crud_thickness=  0.000000000000000    
+                   45 REAL(SDK)                  :: uniform_crud_mass=  0.000000000000000    
+                   46 REAL(SDK)                  :: uniform_crud_boron_mass=  0.000000000000000    
+
+
+
+     = Memory Usage results in MB =
+
+ +------------------------------------------------------+
+ |  Rank  |  Proc. Mem (MB) | Proc. Mem from MPACT (MB) |
+ +------------------------------------------------------+
+ | Total  |   3718.7        |   2949.2                  |
+ +------------------------------------------------------+
+ |  Avg   |   743.7         |   589.8                   |
+ +------------------------------------------------------+
+ |  Min   |   738.0         |   589.4                   |
+ +------------------------------------------------------+
+ |  MAX   |   747.6         |   590.2                   |
+ +------------------------------------------------------+
+ |      0 |   747.4         |   590.2                   |
+ |      1 |   747.6         |   590.2                   |
+ |      2 |   746.0         |   590.2                   |
+ |      3 |   740.0         |   589.4                   |
+ |      4 |   738.0         |   589.4                   |
+ +------------------------------------------------------+
+
+     = Timing results in HH:MM:SS.ff =
+
+ +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+ |  Rank  | Total Time | Init. Time | Solve Time | Comm. Time | MOC Solver Calc. | MOC Solver Comm. | Nodal Solver |  calcMacro |  CMFD  Setup |  CMFD  Solve |  CMFD  Update |
+ +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+ |  MAX   |  01:50.48  |  00:01.27  |  01:49.20  |  00:00.00  |  00:14.62        |  00:00.06        |  00:10.40    |  00:00.01  |  00:00.16    |  00:02.65    |  00:04.83     |
+ |      0 |  01:50.48  |  00:01.27  |  01:49.20  |  00:00.00  |  00:12.94        |  00:00.05        |  00:10.40    |  00:00.00  |  00:00.16    |  00:02.65    |  00:02.57     |
+ |      1 |  01:50.48  |  00:01.27  |  01:49.20  |  00:00.00  |  00:13.18        |  00:00.06        |  00:10.40    |  00:00.01  |  00:00.16    |  00:02.65    |  00:02.57     |
+ |      2 |  01:50.48  |  00:01.27  |  01:49.20  |  00:00.00  |  00:13.34        |  00:00.05        |  00:10.40    |  00:00.00  |  00:00.16    |  00:02.65    |  00:02.57     |
+ |      3 |  01:50.48  |  00:01.27  |  01:49.20  |  00:00.00  |  00:13.12        |  00:00.05        |  00:10.40    |  00:00.00  |  00:00.16    |  00:02.65    |  00:02.57     |
+ |      4 |  01:50.48  |  00:01.27  |  01:49.20  |  00:00.00  |  00:14.62        |  00:00.06        |  00:10.40    |  00:00.00  |  00:00.16    |  00:02.65    |  00:02.57     |
+ +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
